@@ -77,16 +77,19 @@ export function Header({}: HeaderProps) {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <a href="#bridge" className="text-gray-300 hover:text-white transition-colors cursor-pointer">
+            <a href="/#bridge" className="text-gray-300 hover:text-white transition-colors cursor-pointer">
               Bridge
             </a>
-            <a href="#analytics" className="text-gray-300 hover:text-white transition-colors cursor-pointer">
+            <a href="/transactions" className="text-gray-300 hover:text-white transition-colors cursor-pointer">
+              Transactions
+            </a>
+            <a href="/#analytics" className="text-gray-300 hover:text-white transition-colors cursor-pointer">
               Analytics
             </a>
-            <a href="#docs" className="text-gray-300 hover:text-white transition-colors cursor-pointer">
+            <a href="/docs" className="text-gray-300 hover:text-white transition-colors cursor-pointer">
               Docs
             </a>
-            <a href="#support" className="text-gray-300 hover:text-white transition-colors cursor-pointer">
+            <a href="/#support" className="text-gray-300 hover:text-white transition-colors cursor-pointer">
               Support
             </a>
           </nav>
@@ -144,16 +147,20 @@ export function Header({}: HeaderProps) {
         {showMobileMenu && (
           <div className="md:hidden border-t border-gray-800/50 bg-gray-900/95 backdrop-blur-lg">
             <div className="px-4 py-6 space-y-4">
-              <a href="#bridge" className="block py-2 text-gray-300 hover:text-white transition-colors">
+              {/* Mobile Navigation Links */}
+              <a href="/#bridge" className="block py-2 text-gray-300 hover:text-white transition-colors">
                 Bridge
               </a>
-              <a href="#analytics" className="block py-2 text-gray-300 hover:text-white transition-colors">
+              <a href="/transactions" className="block py-2 text-gray-300 hover:text-white transition-colors">
+                Transactions
+              </a>
+              <a href="/#analytics" className="block py-2 text-gray-300 hover:text-white transition-colors">
                 Analytics
               </a>
-              <a href="#docs" className="block py-2 text-gray-300 hover:text-white transition-colors">
+              <a href="/docs" className="block py-2 text-gray-300 hover:text-white transition-colors">
                 Docs
               </a>
-              <a href="#support" className="block py-2 text-gray-300 hover:text-white transition-colors">
+              <a href="/#support" className="block py-2 text-gray-300 hover:text-white transition-colors">
                 Support
               </a>
               
