@@ -1,0 +1,31 @@
+{
+  "name": "starkbridge-pro",
+  "version": "1.0.0",
+  "description": "Production-ready StarkNet L1-L2 bridging platform",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev --parallel",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "deploy": "turbo run deploy",
+    "db:migrate": "cd packages/backend && npm run db:migrate",
+    "docker:build": "docker-compose build",
+    "docker:up": "docker-compose up -d"
+  },
+  "devDependencies": {
+    "turbo": "^1.10.12",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.45.0",
+    "prettier": "^3.0.0",
+    "typescript": "^5.1.6"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}

@@ -1,0 +1,129 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String   @id @default(cuid())
+  walletAddress String   @unique
+  email         String?  @unique
+  username      String?  @unique
+  avatar        String?
+  preferences   Json     @default("{}")
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  transactions BridgeTransaction[]
+  apiKeys      ApiKey[]
+
+  @@map("users")
+}
+
+model BridgeTransaction {
+  id            String            @id @default(cuid())
+  userId        String
+  fromChain     String
+  toChain       String
+  tokenAddress  String
+  tokenSymbol   String
+  amount        String
+  amountOut     String?
+  status        TransactionStatus @default(PENDING)
+  txHash        String?
+  txHashOut     String?
+  estimatedTime Int
+  actualTime    Int?
+  fees          Json
+  slippage      Float             @default(2.0)
+  metadata      Json              @default("{}")
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+  completedAt   DateTime?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("bridge_transactions")
+}
+
+model Token {
+  address     String  @id
+  symbol      String
+  name        String
+  decimals    Int
+  logoUri     String?
+  chainId     Int
+  isActive    Boolean @default(true)
+  price       Float?
+  priceChange Float?
+  volume24h   String?
+  metadata    Json    @default("{}")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([address, chainId])
+  @@map("tokens")
+}
+
+model Bridge {
+  id              String  @id @default(cuid())
+  name            String
+  fromChain       String
+  toChain         String
+  supportedTokens Json    @default("[]")
+  fees            Json
+  estimatedTime   Int
+  securityLevel   String
+  isActive        Boolean @default(true)
+  metadata        Json    @default("{}")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("bridges")
+}
+
+model Analytics {
+  id               String   @id @default(cuid())
+  date             DateTime @unique @default(now())
+  totalVolume      String   @default("0")
+  totalTransactions Int     @default(0)
+  uniqueUsers      Int      @default(0)
+  avgTransactionTime Float  @default(0)
+  successRate      Float    @default(0)
+  topTokens        Json     @default("[]")
+  metadata         Json     @default("{}")
+
+  @@map("analytics")
+}
+
+model ApiKey {
+  id        String   @id @default(cuid())
+  userId    String
+  name      String
+  key       String   @unique
+  isActive  Boolean  @default(true)
+  lastUsed  DateTime?
+  rateLimit Int      @default(1000)
+  createdAt DateTime @default(now())
+  expiresAt DateTime?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("api_keys")
+}
+
+enum TransactionStatus {
+  PENDING
+  PROCESSING
+  CONFIRMED
+  COMPLETED
+  FAILED
+  CANCELLED
+}
