@@ -12,6 +12,13 @@ yarn.lock
 .env.local
 .env.production
 .env.staging
+**/.env
+**/.env.local
+
+# Next.js build output
+.next/
+**/.next/
+out/
 
 # Build outputs
 dist/
@@ -32,7 +39,7 @@ pids
 *.seed
 *.pid.lock
 
-# Coverage directory used by tools like istanbul
+# Coverage directory
 coverage/
 *.lcov
 
@@ -59,6 +66,3 @@ Thumbs.db
 # Database
 *.sqlite
 *.db
-
-# Docker
-.dockerignore
